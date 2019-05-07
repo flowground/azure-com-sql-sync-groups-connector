@@ -1,0 +1,174 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serverName": {
+            "required": true,
+            "type": "string"
+        },
+        "databaseName": {
+            "required": true,
+            "type": "string"
+        },
+        "syncGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "allOf": [
+                        {
+                            "description": "ARM resource.",
+                            "properties": {
+                                "id": {
+                                    "description": "Resource ID.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "Resource name.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "Resource type.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object",
+                            "x-ms-azure-resource": true
+                        }
+                    ],
+                    "description": "ARM proxy resource.",
+                    "properties": {},
+                    "type": "object"
+                }
+            ],
+            "description": "An Azure SQL Database sync group.",
+            "properties": {
+                "properties": {
+                    "description": "Resource properties.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "conflictResolutionPolicy": {
+                            "description": "Conflict resolution policy of the sync group.",
+                            "enum": [
+                                "HubWin",
+                                "MemberWin"
+                            ],
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "SyncConflictResolutionPolicy"
+                            }
+                        },
+                        "hubDatabasePassword": {
+                            "description": "Password for the sync group hub database credential.",
+                            "type": "string",
+                            "x-ms-mutability": [
+                                "create",
+                                "update"
+                            ]
+                        },
+                        "hubDatabaseUserName": {
+                            "description": "User name for the sync group hub database credential.",
+                            "type": "string"
+                        },
+                        "interval": {
+                            "description": "Sync interval of the sync group.",
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "lastSyncTime": {
+                            "description": "Last sync time of the sync group.",
+                            "format": "date-time",
+                            "readOnly": true,
+                            "type": "string"
+                        },
+                        "schema": {
+                            "description": "Sync schema of the sync group.",
+                            "properties": {
+                                "masterSyncMemberName": {
+                                    "description": "Name of master sync member where the schema is from.",
+                                    "type": "string"
+                                },
+                                "tables": {
+                                    "description": "List of tables in sync group schema.",
+                                    "items": {
+                                        "description": "Properties of table in sync group schema.",
+                                        "properties": {
+                                            "columns": {
+                                                "description": "List of columns in sync group schema.",
+                                                "items": {
+                                                    "description": "Properties of column in sync group table.",
+                                                    "properties": {
+                                                        "dataSize": {
+                                                            "description": "Data size of the column.",
+                                                            "type": "string"
+                                                        },
+                                                        "dataType": {
+                                                            "description": "Data type of the column.",
+                                                            "type": "string"
+                                                        },
+                                                        "quotedName": {
+                                                            "description": "Quoted name of sync group table column.",
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "type": "array"
+                                            },
+                                            "quotedName": {
+                                                "description": "Quoted name of sync group schema table.",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "syncDatabaseId": {
+                            "description": "ARM resource id of the sync database in the sync group.",
+                            "type": "string"
+                        },
+                        "syncState": {
+                            "description": "Sync state of the sync group.",
+                            "enum": [
+                                "NotReady",
+                                "Error",
+                                "Warning",
+                                "Progressing",
+                                "Good"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "SyncGroupState"
+                            }
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
